@@ -14,11 +14,11 @@ import pl.sda.giftwisher.giftwisher.users.validator.UserValidator;
 @Controller
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private SecurityService securityService;
+    private final SecurityService securityService;
 
-    private UserValidator userValidator;
+    private final UserValidator userValidator;
 
     public UserController(UserService userService, SecurityService securityService,
                           UserValidator userValidator) {
@@ -30,22 +30,17 @@ public class UserController {
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new RegistrationFormDTO());
-
         return "registration";
     }
 
     @PostMapping("/registration")
     public String registration(@ModelAttribute("userForm") RegistrationFormDTO userForm, BindingResult bindingResult) {
         userValidator.validate(userForm, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "registration";
         }
-
         userService.save(userForm);
-
-        securityService.autoLogin(userForm.getUsername(),userForm.getPassword());
-
+        securityService.autoLogin(userForm.getUsername(), userForm.getPassword());
         return "redirect:/welcome";
     }
 
@@ -54,17 +49,15 @@ public class UserController {
         if (error != null) {
             model.addAttribute("error", "Your username and password is invalid.");
         }
-
         if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
-
         }
         return "login";
     }
 
-    @GetMapping({"/","/welcome"})
+    @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
-             return "welcome";
+        return "welcome";
     }
 
 }
