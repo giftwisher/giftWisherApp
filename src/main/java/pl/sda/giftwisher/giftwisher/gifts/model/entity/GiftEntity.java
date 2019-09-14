@@ -13,7 +13,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Builder
 @Entity
-@Table(name = "GiftEntity")
+@Table(name = "Gift")
 public class GiftEntity {
 
     @Id

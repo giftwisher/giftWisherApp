@@ -1,7 +1,7 @@
 package pl.sda.giftwisher.giftwisher.gifts.service;
 
 import org.springframework.stereotype.Service;
-import pl.sda.giftwisher.giftwisher.gifts.exceptions.NotFoundGiftException;
+import pl.sda.giftwisher.giftwisher.gifts.exceptions.GiftNotFoundException;
 import pl.sda.giftwisher.giftwisher.gifts.exceptions.WebApplicationException;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
@@ -49,6 +49,6 @@ public class GiftServiceImpl implements GiftService {
         Optional<GiftEntity> optionalGiftEntity = giftRepository.findProductEntityById(idGift);
         return optionalGiftEntity
                 .map(GiftEntity::mapToGiftDto)
-                .orElseThrow(() -> new NotFoundGiftException("Not found product with id = " + idGift));
+                .orElseThrow(() -> new GiftNotFoundException("Not found product with id = " + idGift));
     }
 }

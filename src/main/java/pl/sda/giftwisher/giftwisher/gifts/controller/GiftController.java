@@ -17,14 +17,14 @@ public class GiftController {
         this.giftService = giftService;
     }
 
-    @GetMapping("show_gifts")
+    @GetMapping("/gifts")
     public ModelAndView showGiftsPage(ModelAndView modelAndView) {
         modelAndView.setViewName("show_gifts");
         modelAndView.addObject("gifts", giftService.getAllGifts());
         return modelAndView;
     }
 
-    @GetMapping("/{idGift}")
+    @GetMapping("/gifts/{idGift}")
     public ModelAndView getOneGift(@PathVariable Long idGift) throws WebApplicationException {
         ModelAndView modelAndView = new ModelAndView("show_one");
         GiftDto giftById = giftService.getGiftById(idGift);
