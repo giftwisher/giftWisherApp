@@ -1,7 +1,6 @@
 package pl.sda.giftwisher.giftwisher.gifts.service;
 
 import pl.sda.giftwisher.giftwisher.gifts.exceptions.WebApplicationException;
-import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 
