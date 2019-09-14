@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gifts</title>
+</head>
+<body>
+
+
+
+
+<h5>Hello Gifts view</h5>
+
+<div>
+    <table>
+    <tbody th:each="gift : ${gifts}" th:remove="tag">
+    <tr>
+        <td th:text="${gift.getName()}">...</td>
+        <td th:text="${gift.getDescription()}">...</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+
+
+
+
+
+</body>
+</html>
