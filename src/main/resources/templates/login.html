@@ -9,6 +9,7 @@
 </head>
 <body>
 <div>
+    <div layout:fragment="content">
     <form name="f" th:action="@{/login}" method="post" class="form-signin">
         <fieldset>
             <legend>Please Login</legend>
@@ -25,6 +26,7 @@
         <h4 class="text-center"><a href="#" th:href="@{/registration}">Create an account</a></h4>
     </form>
 
+</div>
 </div>
 </body>
 </html>
