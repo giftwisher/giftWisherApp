@@ -21,9 +21,11 @@ public class GiftEntity {
     private Long id;
     private String name;
     private String description;
+
+    @Enumerated(value = EnumType.STRING)
     private GiftStatus giftStatus;
 
-    @Column(name = "Occassion")
+    @Enumerated(value = EnumType.STRING)
     private Occassion occassion;
 
     public GiftDto mapToGiftDto() {

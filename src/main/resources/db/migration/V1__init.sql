@@ -6,3 +6,4 @@ CREATE TABLE IF NOT EXISTS GIFT (
 	occassion varchar(255)
 );
 
+create sequence demo_sequence start with 1 increment by 1;

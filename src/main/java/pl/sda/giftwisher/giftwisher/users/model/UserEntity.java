@@ -1,10 +1,14 @@
 package pl.sda.giftwisher.giftwisher.users.model;
 
+import pl.sda.giftwisher.giftwisher.gifts.model.entity.GiftEntity;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "User_")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +17,9 @@ public class UserEntity {
     private String username;
 
     private String password;
+
+    @OneToMany
+    private List<GiftEntity> gifts = new ArrayList<>();
 
     @Transient
     private String passwordConfirm;
