@@ -18,7 +18,7 @@ public class UserEntity {
 
     private String password;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<GiftEntity> gifts = new ArrayList<>();
 
     @Transient
@@ -65,5 +65,9 @@ public class UserEntity {
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public List<GiftEntity> getGifts() {
+        return gifts;
     }
 }

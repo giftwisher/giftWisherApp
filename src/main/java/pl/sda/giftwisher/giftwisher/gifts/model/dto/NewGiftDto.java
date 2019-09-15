@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
 

@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface GiftService {
 
-    void addGift(NewGiftDto newGiftDto);
+    void addGift(NewGiftDto newGiftDto, String username);
 
     List<GiftDto> getAllGifts();
 
-    void remove(Long idGift);
+    void remove(Long idGift, String username);
 
     GiftDto getGiftById(Long idGift) throws WebApplicationException;
 }

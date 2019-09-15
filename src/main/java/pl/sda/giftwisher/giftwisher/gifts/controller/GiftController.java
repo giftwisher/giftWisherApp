@@ -12,14 +12,19 @@ import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.service.GiftService;
+import pl.sda.giftwisher.giftwisher.users.service.UserService;
+
+import java.security.Principal;
 
 @Controller
 public class GiftController {
 
     private final GiftService giftService;
+    private final UserService userService;
 
-    public GiftController(GiftService giftService) {
+    public GiftController(GiftService giftService, UserService userService) {
         this.giftService = giftService;
+        this.userService = userService;
     }
 
     @GetMapping("/gifts")
@@ -38,21 +43,26 @@ public class GiftController {
     }
 
     @GetMapping("/gift_form")
-    public ModelAndView addNewGift() {
+    public ModelAndView addNewGift(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("gift_form");
         NewGiftDto newGiftDto = new NewGiftDto();
         modelAndView.addObject("gift", newGiftDto);
         modelAndView.addObject("Occassion", Occassion.values());
         modelAndView.addObject("GiftStatus", GiftStatus.values());
+        modelAndView.addObject("gifts", userService.getGifts(principal.getName()));
         return modelAndView;
     }
 
-    @PostMapping("/gift_form")
-    public ModelAndView saveGift(@ModelAttribute("gift") NewGiftDto giftToSave, ModelAndView modelAndView) {
+    @PostMapping("/gift_save")
+    public ModelAndView saveGift(@ModelAttribute("gift") NewGiftDto giftToSave, ModelAndView modelAndView, Principal principal) {
         modelAndView.setViewName("gift_form");
-        giftService.addGift(giftToSave);
-        NewGiftDto newGiftDto = new NewGiftDto();
-        modelAndView.addObject("gift", newGiftDto);
-        return modelAndView;
+        giftService.addGift(giftToSave, principal.getName());
+        return addNewGift(principal);
+    }
+
+    @GetMapping("/gifts/{idGift}/delete")
+    public ModelAndView deleteGift(@PathVariable Long idGift, Principal principal) throws WebApplicationException {
+        giftService.remove(idGift, principal.getName());
+        return new ModelAndView("redirect:/gift_form");
     }
 }

@@ -4,12 +4,14 @@ import lombok.*;
 import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
+import pl.sda.giftwisher.giftwisher.users.model.UserEntity;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @EqualsAndHashCode
 @Builder
 @Entity
@@ -27,6 +29,9 @@ public class GiftEntity {
 
     @Enumerated(value = EnumType.STRING)
     private Occassion occassion;
+
+    @ManyToOne
+    private UserEntity user;
 
     public GiftDto mapToGiftDto() {
         return GiftDto.builder()
