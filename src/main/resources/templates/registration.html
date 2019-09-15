@@ -2,11 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <title>Please Register</title>
-</head>
 <body>
+<div layout:fragment="content">
 <div class="container">
     <div class="row">
         <form th:action="@{/registration}" method="post" th:object="${userForm}">
@@ -28,6 +25,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
+</div>
 </div>
 </body>
 </html>

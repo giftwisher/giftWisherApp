@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<body>
+<div class="container" layout:fragment="content">
+    <div>
+        <h3>Just, add your gift</h3>
+    </div>
+
+    <form th:object="${gift}" th:action="@{/gift_form}" method="post">
+        <div class="form-group">
+            <label for="formGroupExampleInput">Name</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your gift's name">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">Description</label>
+            <input type="text" class="form-control" id="Description" placeholder="For example address url">
+        </div>
+        <div class="form-group">
+            <label>Occassion</label>
+            <select class="form-control" th:field="*{occassion}">
+                <option th:each="occassionValue : ${Occassion}"
+                        th:value="${occassionValue.name()}"
+                        th:text="${occassionValue.name()}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Gift status</label>
+            <select class="form-control" th:field="*{giftStatus}">
+                <option th:each="giftStatusValue : ${GiftStatus}"
+                        th:value="${giftStatusValue.name()}"
+                        th:text="${giftStatusValue.name()}">
+                </option>
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

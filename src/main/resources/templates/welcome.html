@@ -5,54 +5,59 @@
 
 <body>
 <div layout:fragment="content">
-<div id="top" class="bg-white">
-    <div class="header-content container py-5">
-        <div class="row">
-            <div class="col-xl-4 col-lg-4 col-md-5 py-3">
-                <h1 class="display-2 pt-3 mb-5">
-                    <a href="" class="link">
-                        <span class="text-body line-1 wow fadeIn" data-wow-delay="1.2s" style="visibility: visible; animation-delay: 1.2s;">Just,</span>
-                        <span class="text-body line-2 wow fadeIn" data-wow-delay="1.4s" style="visibility: visible; animation-delay: 1.4s;">Make</span>
-                        <span class="text-body line-3 wow fadeIn text-highlight" data-wow-delay="1.6s" style="visibility: visible; animation-delay: 1.6s;"><br>a Wish.</span>
-                    </a>
-                </h1>
-            </div>
-            <div class="col-xl-4 ml-xl-auto col-lg-4 ml-lg-auto col-md-5 ml-md-auto py-3">
-                <blockquote class="blockquote">
-                    <h3 class="text-right pt-3">No more<em> shitty</em> gifts.</h3>
-                    <h6 class="text-right text-uppercase"><a href="" class="text-muted link small">Just, create your own wishlist</a></h6>
-                </blockquote>
+    <div id="top" class="bg-white">
+        <div class="header-content container py-5">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-5 py-3">
+                    <h1 class="display-2 pt-3 mb-5">
+                        <a href="" th:href="@{/gift_form}" class="link">
+                            <span class="text-body line-1 wow fadeIn" data-wow-delay="1.2s"
+                                  style="visibility: visible; animation-delay: 1.2s;">Just,</span>
+                            <span class="text-body line-2 wow fadeIn" data-wow-delay="1.4s"
+                                  style="visibility: visible; animation-delay: 1.4s;">Make</span>
+                            <span class="text-body line-3 wow fadeIn text-highlight" data-wow-delay="1.6s"
+                                  style="visibility: visible; animation-delay: 1.6s;"><br>a Wish.</span>
+                        </a>
+                    </h1>
+                </div>
+                <div class="col-xl-4 ml-xl-auto col-lg-4 ml-lg-auto col-md-5 ml-md-auto py-3">
+                    <blockquote class="blockquote">
+                        <h3 class="text-right pt-3">No more<em> shitty</em> gifts.</h3>
+                        <h6 class="text-right text-uppercase"><a href="" th:href="@{/gift_form}"
+                                                                 class="text-muted link small">Just, create your own
+                            wishlist</a></h6>
+                    </blockquote>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
-    <div class="card border-0 shadow my-5">
+    <div class="container">
+        <div class="card border-0 shadow my-5">
+        </div>
     </div>
-</div>
 
-<div class="header-content container py-3">
-    <div class="row vcenter">
-        <div class="col-xl-5 col-lg-4 col-md-3"></div>
-        <div class="col-xl-7 col-lg-8 col-md-9 bg-white wow fadeIn" style="visibility: visible;">
-            <div class="p-4" style="
+    <div class="header-content container py-3">
+        <div class="row vcenter">
+            <div class="col-xl-5 col-lg-4 col-md-3"></div>
+            <div class="col-xl-7 col-lg-8 col-md-9 bg-white wow fadeIn" style="visibility: visible;">
+                <div class="p-4" style="
     text-shadow: 0 0 0px black;
 ">
-                <h1 class="pt-2">About</h1>
-                <p class="lead pt-2 pr-2">Gift Wisher App allows you to show your friends and family what do you really need.
-                    <b>This is so easy.</b> Just create your own list, share it and be happy with gifts you really want. </p>
-                <hr>
-                <a href="#one" class="btn btn-outline-dark btn-xl page-scroll mb-2">Get Started</a>
+                    <h1 class="pt-2">About</h1>
+                    <p class="lead pt-2 pr-2">Gift Wisher App allows you to show your friends and family what do you
+                        really need.
+                        <b>This is so easy.</b> Just create your own list, share it and be happy with gifts you really
+                        want. </p>
+                    <hr>
+                    <a href="#one" th:href="@{/gift_form}" class="btn btn-outline-dark">Get Started</a>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </div>
 </body>
 </html>
