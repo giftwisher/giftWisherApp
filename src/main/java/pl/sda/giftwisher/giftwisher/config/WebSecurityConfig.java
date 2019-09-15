@@ -1,4 +1,4 @@
-package pl.sda.giftwisher.giftwisher;
+package pl.sda.giftwisher.giftwisher.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() //h2
                 .and()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/registration", "/", "/welcome", "/login").permitAll()
+                .antMatchers("/css/**","/resources/**", "/registration", "/", "/welcome", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
