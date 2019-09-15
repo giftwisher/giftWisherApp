@@ -1,4 +1,4 @@
-package pl.sda.giftwisher.giftwisher;
+package pl.sda.giftwisher.giftwisher.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -3,29 +3,29 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
 <body>
-    <div layout:fragment="content">
-        <div class="container">
-            <div class="row">
-    <form name="f" th:action="@{/login}" method="post" class="form-signin">
-        <fieldset>
-            <legend>Please Login</legend>
-            <div class="form-group ${error != null ? 'has-error' : ''}">
-                <span th:text="${message}">message</span>
-                <input name="username" type="text" class="form-control" placeholder="Username"
-                       autofocus="true"/>
-                <br>
-                <input name="password" type="password" class="form-control" placeholder="Password"/>
-                <span th:text="${error}"></span>
-                <br>
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button class="btn btn-primary" type="submit">Log In</button>
-            </div>
-        </fieldset>
-        <h4 class="text-center"><a href="#" th:href="@{/registration}">Create an account</a></h4>
-    </form>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="row">
+            <form name="f" th:action="@{/login}" method="post" class="form-signin">
+                <fieldset>
+                    <legend>Please Login</legend>
+                    <div class="form-group ${error != null ? 'has-error' : ''}">
+                        <span th:text="${message}">message</span>
+                        <input name="username" type="text" class="form-control" placeholder="Username"
+                               autofocus="true"/>
+                        <br>
+                        <input name="password" type="password" class="form-control" placeholder="Password"/>
+                        <span th:text="${error}"></span>
+                        <br>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button class="btn btn-primary" type="submit">Log In</button>
+                    </div>
+                </fieldset>
+                <h4 class="text-center"><a href="#" th:href="@{/registration}">Create an account</a></h4>
+            </form>
 
-</div>
         </div>
     </div>
+</div>
 </body>
 </html>
