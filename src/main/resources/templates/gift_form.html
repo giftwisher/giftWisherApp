@@ -13,10 +13,12 @@
         <div class="form-group">
             <label for="formGroupExampleInput">Name</label>
             <input type="text" th:field="*{name}" class="form-control" id="formGroupExampleInput" placeholder="Your gift's name">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput">Description</label>
             <input type="text" th:field="*{description}" class="form-control" id="Description" placeholder="For example address url">
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</div>
         </div>
         <div class="form-group">
             <label>Occassion</label>
@@ -24,15 +26,6 @@
                 <option th:each="occassionValue : ${Occassion}"
                         th:value="${occassionValue.name()}"
                         th:text="${occassionValue.name()}">
-                </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Gift status</label>
-            <select class="form-control" th:field="*{giftStatus}">
-                <option th:each="giftStatusValue : ${GiftStatus}"
-                        th:value="${giftStatusValue.name()}"
-                        th:text="${giftStatusValue.name()}">
                 </option>
             </select>
         </div>
