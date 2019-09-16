@@ -10,5 +10,5 @@ Project using:
  * [Thymeleaf + Thymeleaf Templates](https://www.thymeleaf.org/)
 
 
-# Application
+# Application Demo
 Application is available here [https://giftwisher.herokuapp.com/](https://giftwisher.herokuapp.com/)
