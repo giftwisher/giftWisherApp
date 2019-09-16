@@ -22,7 +22,7 @@
                 <input type="password" th:field="*{repeatedPassword}" class="form-control" id="repeatedPassword" placeholder="Repeat Password">
                 <div th:if="${#fields.hasErrors('repeatedPassword')}" th:errors="*{repeatedPassword}">Repeating Password Error</div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-light">Create Account</button>
         </form>
     </div>
 </div>

@@ -5,17 +5,18 @@
 <body>
 <div class="container" layout:fragment="content">
     <div>
-        <h3>Just, add your gift</h3>
+        <h3>What's your perfect gift?</h3>
+        <br>
     </div>
 
-    <form th:object="${gift}" th:action="@{/gift_form}" method="post">
+    <form th:object="${gift}" th:action="@{/gift_save}" method="post">
         <div class="form-group">
             <label for="formGroupExampleInput">Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your gift's name">
+            <input type="text" th:field="*{name}" class="form-control" id="formGroupExampleInput" placeholder="Your gift's name">
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput">Description</label>
-            <input type="text" class="form-control" id="Description" placeholder="For example address url">
+            <input type="text" th:field="*{description}" class="form-control" id="Description" placeholder="For example address url">
         </div>
         <div class="form-group">
             <label>Occassion</label>
@@ -36,8 +37,34 @@
             </select>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-light">Add to Wishlist</button>
     </form>
+    <br>
+    <br>
+    <h4>Gifts you wish to get:</h4>
+    <br>
+    <div class="table table-hover">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Occassion</th>
+                <th>Status</th>
+                <th>#</th>
+            </tr>
+            </thead>
+            <tbody th:each="gift : ${gifts}" th:remove="tag">
+            <tr class="table-light">
+                <td th:text="${gift.getName()}">Book</td>
+                <td th:text="${gift.getDescription()}">Nice</td>
+                <td th:text="${gift.getOccassion()}">B-day</td>
+                <td th:text="${gift.getGiftStatus()}">Available</td>
+                <td><a href="#" th:href="@{'/gifts/' + ${gift.getId()} + '/delete'}" class="text-muted link">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

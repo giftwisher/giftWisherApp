@@ -18,10 +18,11 @@
                         <span th:text="${error}"></span>
                         <br>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button class="btn btn-primary" type="submit">Log In</button>
+                        <button class="btn btn-light" type="submit">Log In</button>
                     </div>
                 </fieldset>
-                <h4 class="text-center"><a href="#" th:href="@{/registration}">Create an account</a></h4>
+                <br>
+                <h4 class="text"><a href="#" th:href="@{/registration}" class="text-muted link">Create an account</a></h4>
             </form>
 
         </div>

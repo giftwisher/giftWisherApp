@@ -5,6 +5,7 @@ import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
 
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,5 +17,4 @@ public class GiftDto {
     private String description;
     private GiftStatus giftStatus;
     private Occassion occassion;
-
 }
