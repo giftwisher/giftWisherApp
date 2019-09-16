@@ -37,7 +37,7 @@
             </select>
         </div>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-light">Add to Wishlist</button>
     </form>
     <br>
     <br>
@@ -60,7 +60,7 @@
                 <td th:text="${gift.getDescription()}">Nice</td>
                 <td th:text="${gift.getOccassion()}">B-day</td>
                 <td th:text="${gift.getGiftStatus()}">Available</td>
-                <td><a href="#" th:href="@{'/gifts/' + ${gift.getId()} + '/delete'}">Delete</a></td>
+                <td><a href="#" th:href="@{'/gifts/' + ${gift.getId()} + '/delete'}" class="text-muted link">Delete</a></td>
             </tr>
             </tbody>
         </table>
