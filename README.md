@@ -10,4 +10,4 @@ Project using:
 
 
 # Application
-Application is available here ![https://giftwisher.herokuapp.com/](https://giftwisher.herokuapp.com/)
+Application is available here [https://giftwisher.herokuapp.com/](https://giftwisher.herokuapp.com/)
