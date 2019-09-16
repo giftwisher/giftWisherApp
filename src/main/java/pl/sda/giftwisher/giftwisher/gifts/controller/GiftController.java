@@ -1,17 +1,21 @@
 package pl.sda.giftwisher.giftwisher.gifts.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.sda.giftwisher.giftwisher.gifts.exceptions.WebApplicationException;
 import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.service.GiftService;
+import pl.sda.giftwisher.giftwisher.gifts.validator.NewGiftValidator;
 import pl.sda.giftwisher.giftwisher.users.service.UserService;
 
 import java.security.Principal;
@@ -21,10 +25,12 @@ public class GiftController {
 
     private final GiftService giftService;
     private final UserService userService;
+    private final NewGiftValidator giftValidator;
 
-    public GiftController(GiftService giftService, UserService userService) {
+    public GiftController(GiftService giftService, UserService userService, NewGiftValidator giftValidator) {
         this.giftService = giftService;
         this.userService = userService;
+        this.giftValidator = giftValidator;
     }
 
     @GetMapping("/gifts")
@@ -42,26 +48,34 @@ public class GiftController {
         return modelAndView;
     }
 
-    @GetMapping("/gift_form")
-    public ModelAndView addNewGift(Principal principal) {
-        ModelAndView modelAndView = new ModelAndView("gift_form");
+    @GetMapping({"/gift_form", "/gift_form_success"})
+    public String addNewGift(Model model, Principal principal) {
         NewGiftDto newGiftDto = new NewGiftDto();
-        modelAndView.addObject("gift", newGiftDto);
-        modelAndView.addObject("Occassion", Occassion.values());
-        modelAndView.addObject("GiftStatus", GiftStatus.values());
-        modelAndView.addObject("gifts", userService.getGifts(principal.getName()));
-        return modelAndView;
+        if (!model.containsAttribute("gift")) {
+            model.addAttribute("gift", newGiftDto);
+        }
+        model.addAttribute("Occassion", Occassion.values());
+        model.addAttribute("gifts", userService.getGifts(principal.getName()));
+        return "gift_form";
     }
 
     @PostMapping("/gift_save")
-    public ModelAndView saveGift(@ModelAttribute("gift") NewGiftDto giftToSave, ModelAndView modelAndView, Principal principal) {
-        modelAndView.setViewName("gift_form");
+    public String saveGift(@ModelAttribute("gift") NewGiftDto giftToSave,
+                           Principal principal, BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
+        giftValidator.validate(giftToSave, bindingResult);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.gift", bindingResult);
+            redirectAttributes.addFlashAttribute("gift", giftToSave);
+            return "redirect:/gift_form";
+        }
+        giftToSave.setGiftStatus(GiftStatus.AVAILABLE);
         giftService.addGift(giftToSave, principal.getName());
-        return addNewGift(principal);
+        return "redirect:/gift_form_success";
     }
 
     @GetMapping("/gifts/{idGift}/delete")
-    public ModelAndView deleteGift(@PathVariable Long idGift, Principal principal) throws WebApplicationException {
+    public ModelAndView deleteGift(@PathVariable Long idGift, Principal principal) {
         giftService.remove(idGift, principal.getName());
         return new ModelAndView("redirect:/gift_form");
     }
