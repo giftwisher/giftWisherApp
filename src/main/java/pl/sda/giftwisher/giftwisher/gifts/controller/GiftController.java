@@ -69,7 +69,6 @@ public class GiftController {
             redirectAttributes.addFlashAttribute("gift", giftToSave);
             return "redirect:/gift_form";
         }
-        giftToSave.setGiftStatus(GiftStatus.AVAILABLE);
         giftService.addGift(giftToSave, principal.getName());
         return "redirect:/gift_form_success";
     }

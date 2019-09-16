@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.giftwisher.giftwisher.gifts.exceptions.GiftNotFoundException;
 import pl.sda.giftwisher.giftwisher.gifts.exceptions.WebApplicationException;
+import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.entity.GiftEntity;
@@ -34,7 +35,7 @@ public class GiftServiceImpl implements GiftService {
         GiftEntity giftEntity = GiftEntity.builder()
                 .name(newGiftDto.getName())
                 .description(newGiftDto.getDescription())
-                .giftStatus(newGiftDto.getGiftStatus())
+                .giftStatus(GiftStatus.AVAILABLE)
                 .occassion(newGiftDto.getOccassion())
                 .user(userRepository.findByUsername(username))
                 .build();
