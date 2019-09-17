@@ -34,7 +34,36 @@
     </form>
     <br>
     <br>
-    <h4>Gifts you wish to get:</h4>
+    <h4>Share your wishlist: </h4>
+
+    <button type="button" class="btn btn-light btn-block" href="#" data-toggle="tooltip" title="Click And Copy Me!"
+            onclick="copyToClipboard('#myInput')" th:text="${path}" id="myInput"></button>
+
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            alert("Copied the text: " + $(element).text());
+            $temp.remove();
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+    <br>
+
+    <a href="#" th:href="@{https://www.facebook.com/sharer.php?u=__${path}__}" class="fa fa-facebook"></a>
+    <a href="#" th:href="@{https://twitter.com/share?url=__${path}__&text=WISHLIST&via=giftWisher&hashtags=wishlist,gifts,buyme}" class="fa fa-twitter"></a>
+    <a href="#" th:href="@{https://www.linkedin.com/shareArticle?url=__${path}__&title=WISHLIST}" class="fa fa-linkedin"></a>
+
+    <br>
+    <br>
+    <h4>Gifts on your wishlist:</h4>
     <br>
     <div class="table table-hover">
         <table class="table">
