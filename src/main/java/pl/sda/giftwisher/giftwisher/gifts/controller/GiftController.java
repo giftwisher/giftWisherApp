@@ -32,13 +32,14 @@ public class GiftController {
     }
 
     @GetMapping("/wishlist/{username}")
-    public ModelAndView getOneGift(@PathVariable String username) {
+    public ModelAndView getWishlist(@PathVariable String username) {
         ModelAndView modelAndView = new ModelAndView("show_gifts");
+        System.out.println(username);
         modelAndView.addObject("gifts", userService.getGifts(username));
         return modelAndView;
     }
 
-    @GetMapping({"/gift_form", "/gift_form_success"})
+    @GetMapping("/giftForm")
     public String addNewGift(Model model, Principal principal, HttpServletRequest request) {
         NewGiftDto newGiftDto = new NewGiftDto();
         if (!model.containsAttribute("gift")) {
@@ -53,7 +54,7 @@ public class GiftController {
 
     private String getLinkToWishlist(Principal principal, HttpServletRequest request) {
         String path = request.getRequestURL().toString();
-        path = path.substring(0, path.length() - 9).concat("wishlist/" + principal.getName());
+        path = path.substring(0, path.length() - 8).concat("wishlist/" + principal.getName());
         return path;
     }
 
@@ -65,15 +66,15 @@ public class GiftController {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.gift", bindingResult);
             redirectAttributes.addFlashAttribute("gift", giftToSave);
-            return "redirect:/gift_form";
+            return "redirect:/giftForm";
         }
         giftService.addGift(giftToSave, principal.getName());
-        return "redirect:/gift_form_success";
+        return "redirect:/giftForm";
     }
 
     @GetMapping("/gifts/{idGift}/delete")
     public ModelAndView deleteGift(@PathVariable Long idGift, Principal principal) {
         giftService.remove(idGift, principal.getName());
-        return new ModelAndView("redirect:/gift_form");
+        return new ModelAndView("redirect:/giftForm");
     }
 }

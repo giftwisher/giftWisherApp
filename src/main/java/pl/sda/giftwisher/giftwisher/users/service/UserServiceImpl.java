@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<GiftDto> getGifts(String username) {
+        System.out.println(userRepository.findByUsername(username).getGifts());
         return userRepository.findByUsername(username).getGifts().stream()
                 .map(GiftEntity::mapToGiftDto)
                 .collect(Collectors.toList());
