@@ -29,29 +29,17 @@
                         <li class="nav-item">
                             <a href="#" th:href="@{/giftForm}" class="nav-link m-2 menu-item"><button type="button" class="btn btn-light">Get Started</button></a>
                         </li>
-                        <ul class="nav-item">
-                            <li class="dropdown">
-                                <a href="#" th:href="@{/login}" class="dropdown-toggle" data-toggle="dropdown" roleEntity="button" aria-haspopup="true" aria-expanded="false">Menu<span class="caret"></span></a>
-                                <ul class="dropdown-menu" sec:authorize="isAnonymous()">
-                                    <li><a href="#" th:href="@{/}" th:inline="text">Log in/Sign in</a></li>
-                                    <li><a href="#" th:href="@{/sign-in}" th:inline="text">Sign in</a></li>
-                                    <li><a href="#" th:href="@{/login}" th:inline="text">Log in</a></li>
-                                </ul>
-                                <ul class="dropdown-menu" sec:authorize="isAuthenticated()">
-                                    <li><a href="#" th:href="@{/}"></a></li>
-                                    <li><a href="#" th:href="@{/profile}">Profile</a></li>
-                                    <li><a href="#" th:href="@{/logout}">Logout</a></li>
-                                </ul></li>
-                        </ul>
-
-
-
-
-
-
-<!--                        <li class="nav-item">-->
-<!--                            <a href="#" th:href="@{/login}" class="nav-link m-2 menu-item"><button type="button" class="btn btn-outline-dark">Log in/Sign up</button></a>-->
-<!--                        </li>-->
+                        <li sec:authorize="!isAuthenticated()" class="nav-item">
+                            <a href="#" th:href="@{/login}" class="nav-link m-2 menu-item"><button type="button" class="btn btn-outline-dark">Log in/Sign up</button></a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                            <a href="#" class="nav-link m-3 dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false" sec:authentication="name">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="pl-3" th:href="@{/logout}">Log out</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </nav>
