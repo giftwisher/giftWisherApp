@@ -5,17 +5,20 @@
 <body>
 <div class="container" layout:fragment="content">
     <div>
-        <h3>Just, add your gift</h3>
+        <h3>What's your perfect gift?</h3>
+        <br>
     </div>
 
-    <form th:object="${gift}" th:action="@{/gift_form}" method="post">
+    <form th:object="${gift}" th:action="@{/gift_save}" method="post">
         <div class="form-group">
             <label for="formGroupExampleInput">Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Your gift's name">
+            <input type="text" th:field="*{name}" class="form-control" id="formGroupExampleInput" placeholder="Your gift's name">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput">Description</label>
-            <input type="text" class="form-control" id="Description" placeholder="For example address url">
+            <input type="text" th:field="*{description}" class="form-control" id="Description" placeholder="For example address url">
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Error</div>
         </div>
         <div class="form-group">
             <label>Occassion</label>
@@ -26,18 +29,67 @@
                 </option>
             </select>
         </div>
-        <div class="form-group">
-            <label>Gift status</label>
-            <select class="form-control" th:field="*{giftStatus}">
-                <option th:each="giftStatusValue : ${GiftStatus}"
-                        th:value="${giftStatusValue.name()}"
-                        th:text="${giftStatusValue.name()}">
-                </option>
-            </select>
-        </div>
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-light">Add to Wishlist</button>
     </form>
+    <br>
+    <br>
+    <h4>Share your wishlist: </h4>
+
+    <button type="button" class="btn btn-light btn-block" href="#" data-toggle="tooltip" title="Click And Copy Me!"
+            onclick="copyToClipboard('#myInput')" th:text="${path}" id="myInput"></button>
+
+    <script>
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            alert("Copied the text: " + $(element).text());
+            $temp.remove();
+        }
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+
+    <br>
+
+    <a href="#" th:href="@{https://www.facebook.com/sharer.php?u=__${path}__}" class="fa fa-facebook"></a>
+    <a href="#" th:href="@{https://twitter.com/share?url=__${path}__&text=WISHLIST&via=giftWisher&hashtags=wishlist,gifts,buyme}" class="fa fa-twitter"></a>
+    <a href="#" th:href="@{https://www.linkedin.com/shareArticle?url=__${path}__&title=WISHLIST}" class="fa fa-linkedin"></a>
+
+    <br>
+    <br>
+    <h4>Gifts on your wishlist:</h4>
+    <br>
+    <div class="table table-hover">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Occassion</th>
+                <th>Status</th>
+                <th>#</th>
+            </tr>
+            </thead>
+            <tbody th:each="gift : ${gifts}" th:remove="tag">
+            <tr class="table-light">
+                <td th:text="${gift.getName()}">Book</td>
+                <td th:text="${gift.getDescription()}">Nice</td>
+                <td th:text="${gift.getOccassion()}">B-day</td>
+                <td th:text="${gift.getGiftStatus()}">Available</td>
+                <td><a href="#" th:href="@{'/gifts/' + ${gift.getId()} + '/delete'}" class="text-muted link">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+    </div>
 </div>
 </body>
 </html>
