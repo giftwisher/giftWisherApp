@@ -29,8 +29,16 @@
                         <li class="nav-item">
                             <a href="#" th:href="@{/giftForm}" class="nav-link m-2 menu-item"><button type="button" class="btn btn-light">Get Started</button></a>
                         </li>
-                        <li class="nav-item">
+                        <li sec:authorize="!isAuthenticated()" class="nav-item">
                             <a href="#" th:href="@{/login}" class="nav-link m-2 menu-item"><button type="button" class="btn btn-outline-dark">Log in/Sign up</button></a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                            <a href="#" class="nav-link m-3 dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false" sec:authentication="name">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="pl-3" th:href="@{/logout}">Log out</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
