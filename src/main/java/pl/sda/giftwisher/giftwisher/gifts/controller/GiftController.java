@@ -4,15 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
-import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.service.GiftService;
 import pl.sda.giftwisher.giftwisher.gifts.validator.NewGiftValidator;
@@ -20,7 +16,6 @@ import pl.sda.giftwisher.giftwisher.users.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.ArrayList;
 
 @Slf4j
 @Controller
@@ -45,10 +40,13 @@ public class GiftController {
         return "show_gifts";
     }
 
-    @PostMapping("/wishlist/{username}/save")
-    public String saveWishlist(@PathVariable String username, @ModelAttribute ArrayList<GiftDto> gifts) {
-        giftService.saveChanges(gifts, username);
-        log.info("list of gifts from " + username + " has been saved:" + gifts.toString());
+    @PostMapping("/wishlist/{username}/gifts/{giftId}/status/{giftStatus}")
+    public String saveWishlist(
+            @PathVariable String username,
+            @PathVariable Long giftId,
+            @PathVariable GiftStatus giftStatus) {
+        //FIXME: Current version allows to reserve random gifts of other users :(
+        giftService.updateGiftStatus(giftId, giftStatus);
         return "redirect:/wishlist/"+username;
     }
 

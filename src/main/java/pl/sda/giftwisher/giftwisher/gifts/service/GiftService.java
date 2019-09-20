@@ -1,6 +1,6 @@
 package pl.sda.giftwisher.giftwisher.gifts.service;
 
-import pl.sda.giftwisher.giftwisher.gifts.exceptions.WebApplicationException;
+import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 
@@ -14,7 +14,7 @@ public interface GiftService {
 
     void remove(Long idGift, String username);
 
-    GiftDto getGiftById(Long idGift) throws WebApplicationException;
+    GiftDto getGiftById(Long idGift);
 
-    void saveChanges(List<GiftDto> gifts, String username);
+    void updateGiftStatus(Long giftId, GiftStatus giftStatus);
 }
