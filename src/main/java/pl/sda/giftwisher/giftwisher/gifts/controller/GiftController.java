@@ -1,5 +1,6 @@
 package pl.sda.giftwisher.giftwisher.gifts.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.Occassion;
+import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.service.GiftService;
 import pl.sda.giftwisher.giftwisher.gifts.validator.NewGiftValidator;
@@ -17,7 +20,9 @@ import pl.sda.giftwisher.giftwisher.users.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 
+@Slf4j
 @Controller
 public class GiftController {
 
@@ -32,11 +37,19 @@ public class GiftController {
     }
 
     @GetMapping("/wishlist/{username}")
-    public ModelAndView getWishlist(@PathVariable String username) {
-        ModelAndView modelAndView = new ModelAndView("show_gifts");
-        System.out.println(username);
-        modelAndView.addObject("gifts", userService.getGifts(username));
-        return modelAndView;
+    public String getWishlist(@PathVariable String username, Model model) {
+        log.info("list of gifts from " + username + " has been accessed");
+        model.addAttribute("gifts", userService.getGifts(username));
+        model.addAttribute("statuses", GiftStatus.values());
+        model.addAttribute("username", username);
+        return "show_gifts";
+    }
+
+    @PostMapping("/wishlist/{username}/save")
+    public String saveWishlist(@PathVariable String username, @ModelAttribute ArrayList<GiftDto> gifts) {
+        giftService.saveChanges(gifts, username);
+        log.info("list of gifts from " + username + " has been saved:" + gifts.toString());
+        return "redirect:/wishlist/"+username;
     }
 
     @GetMapping("/giftForm")

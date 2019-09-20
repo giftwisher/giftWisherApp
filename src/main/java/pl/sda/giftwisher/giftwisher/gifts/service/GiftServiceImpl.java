@@ -1,5 +1,6 @@
 package pl.sda.giftwisher.giftwisher.gifts.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.sda.giftwisher.giftwisher.gifts.exceptions.GiftNotFoundException;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class GiftServiceImpl implements GiftService {
 
@@ -66,5 +68,20 @@ public class GiftServiceImpl implements GiftService {
         return optionalGiftEntity
                 .map(GiftEntity::mapToGiftDto)
                 .orElseThrow(() -> new GiftNotFoundException("Not found product with id = " + idGift));
+    }
+
+    @Override
+    public void saveChanges(List<GiftDto> gifts, String username) {
+        log.info(gifts.toString());
+        gifts.forEach(this::setStatus);
+    }
+
+    private void setStatus(GiftDto dto) {
+        Optional<GiftEntity> productEntityById = giftRepository.findProductEntityById(dto.getId());
+        if (productEntityById.isPresent()) {
+            productEntityById.ifPresent(entity -> entity.setGiftStatus(dto.getGiftStatus()));
+            productEntityById.ifPresent(giftRepository::save);
+            log.info(productEntityById.toString());
+        }
     }
 }

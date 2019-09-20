@@ -15,4 +15,6 @@ public interface GiftService {
     void remove(Long idGift, String username);
 
     GiftDto getGiftById(Long idGift) throws WebApplicationException;
+
+    void saveChanges(List<GiftDto> gifts, String username);
 }

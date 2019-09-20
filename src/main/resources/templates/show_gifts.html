@@ -3,25 +3,49 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
 <body>
-<div layout:fragment="content">
+<div class="container" layout:fragment="content">
+    <div>
+        <h5>Choose wisely:</h5>
+    </div>
+    <br>
+    <form class="saveForm" th:object="${gifts}"  th:action="@{'/wishlist/'+${username}+'/save'}" method="post">
+        <div class="table table-hover">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Occassion</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody th:each="gift : ${gifts}" th:remove="tag">
+                <tr class="table-light">
+                    <td th:text="${gift.getName()}">Book</td>
+                    <td th:text="${gift.getDescription()}">Nice</td>
+                    <td th:text="${gift.getOccassion()}">B-day</td>
+                    <td>
+                        <div class="col-md-3 form-group">
+                            <select class="form-control" id="gift.getGiftStatus()" name="gift.getGiftStatus()">
+                                <option th:each="statusValue : ${statuses}"
+                                        th:value="${statusValue.name()}"
+                                        th:text="${statusValue.name()}"
+                                        th:selected="(${gift.getGiftStatus()}) == ${statusValue.name()}"
+                                >val
+                                </option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-light">Save</button>
+            <br>
+            <br>
+            <br>
+        </div>
+    </form>
 
-<h5>Hello Gifts view</h5>
-
-<div>
-    <table>
-    <tbody th:each="gift : ${gifts}" th:remove="tag">
-    <tr>
-        <td th:text="${gift.getName()}">...</td>
-        <td th:text="${gift.getDescription()}">...</td>
-    </tr>
-    </tbody>
-</table>
 </div>
-
-
-
-
-
-
 </body>
 </html>

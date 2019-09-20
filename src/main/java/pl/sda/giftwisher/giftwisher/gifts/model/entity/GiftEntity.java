@@ -12,6 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 @EqualsAndHashCode
 @Builder
 @Entity
@@ -42,4 +43,5 @@ public class GiftEntity {
                 .occassion(this.occassion)
                 .build();
     }
+
 }

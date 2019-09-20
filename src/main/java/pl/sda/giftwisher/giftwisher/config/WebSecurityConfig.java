@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable() //h2
                 .and()
                 .authorizeRequests()
-                .antMatchers("/css/**","/resources/**", "/registration", "/", "/welcome", "/login", "/wishlist/*").permitAll()
+                .antMatchers("/css/**","/resources/**", "/registration", "/", "/welcome", "/login", "/wishlist/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
