@@ -1,5 +1,6 @@
 package pl.sda.giftwisher.giftwisher.users.model;
 
+import lombok.Getter;
 import lombok.Setter;
 import pl.sda.giftwisher.giftwisher.gifts.model.entity.GiftEntity;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "User_")
@@ -18,6 +20,9 @@ public class UserEntity {
     private String username;
 
     private String password;
+
+    @Getter
+    private UUID corrId = UUID.randomUUID();
 
     @Setter
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")

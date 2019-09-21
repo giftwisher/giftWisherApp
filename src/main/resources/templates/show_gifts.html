@@ -2,12 +2,15 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
+
 <body>
 <div class="container" layout:fragment="content">
     <div>
         <h5>Choose wisely:</h5>
+        <br>
     </div>
     <br>
+
     <div class="table table-hover">
         <table class="table">
             <thead class="thead-light">
@@ -29,19 +32,19 @@
                     <div class="col-md-3 form-group" th:switch="${gift.giftStatus}">
                         <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).AVAILABLE}"
                               class="saveForm"
-                              th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/RESERVED'}"
-                              method="post">
+                              th:action="@{'/wishlist/'+${uuid}+'/gifts/'+${gift.id}+'/status/RESERVED'}"
+                              method="post" data-toggle="tooltip" title="Click if you want to reserve me!">
                             <button type="submit" class="btn btn-success">Reserve</button>
                         </form>
                         <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).RESERVED}"
                               class="saveForm"
-                              th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/TAKEN'}"
-                              method="post">
+                              th:action="@{'/wishlist/'+${uuid}+'/gifts/'+${gift.id}+'/status/TAKEN'}"
+                              method="post" data-toggle="tooltip" title="Click if you want to buy me!">
                             <button type="submit" class="btn btn-warning">Block</button>
                         </form>
                         <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).TAKEN}" class="saveForm"
-                              th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/AVAILABLE'}"
-                              method="post">
+                              th:action="@{'/wishlist/'+${uuid}+'/gifts/'+${gift.id}+'/status/AVAILABLE'}"
+                              method="post" data-toggle="tooltip" title="Click if you want to resign from buying me!">
                             <button type="submit" class="btn btn-dark">Free</button>
                         </form>
                     </div>
@@ -49,6 +52,9 @@
             </tr>
             </tbody>
         </table>
+        <br>
+        <br>
+        <br>
     </div>
 </div>
 </body>
