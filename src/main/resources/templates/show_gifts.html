@@ -3,25 +3,53 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout/layout">
 <body>
-<div layout:fragment="content">
-
-<h5>Hello Gifts view</h5>
-
-<div>
-    <table>
-    <tbody th:each="gift : ${gifts}" th:remove="tag">
-    <tr>
-        <td th:text="${gift.getName()}">...</td>
-        <td th:text="${gift.getDescription()}">...</td>
-    </tr>
-    </tbody>
-</table>
+<div class="container" layout:fragment="content">
+    <div>
+        <h5>Choose wisely:</h5>
+    </div>
+    <br>
+    <div class="table table-hover">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Occassion</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody th:each="gift, itemStat : ${gifts}" th:remove="tag">
+            <tr class="table-light">
+                <td th:text="${gift.name}">Book</td>
+                <td th:text="${gift.description}">Nice</td>
+                <td th:text="${gift.occassion}">B-day</td>
+                <td th:text="${gift.giftStatus}">B-day</td>
+                <td>
+                    <div class="col-md-3 form-group" th:switch="${gift.giftStatus}">
+                        <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).AVAILABLE}"
+                              class="saveForm"
+                              th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/RESERVED'}"
+                              method="post">
+                            <button type="submit" class="btn btn-success">Reserve</button>
+                        </form>
+                        <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).RESERVED}"
+                              class="saveForm"
+                              th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/TAKEN'}"
+                              method="post">
+                            <button type="submit" class="btn btn-warning">Block</button>
+                        </form>
+                        <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).TAKEN}" class="saveForm"
+                              th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/AVAILABLE'}"
+                              method="post">
+                            <button type="submit" class="btn btn-dark">Free</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-
-
-
-
-
-
 </body>
 </html>

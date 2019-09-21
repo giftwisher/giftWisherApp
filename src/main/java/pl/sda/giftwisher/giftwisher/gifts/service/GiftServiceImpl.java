@@ -1,9 +1,8 @@
 package pl.sda.giftwisher.giftwisher.gifts.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.sda.giftwisher.giftwisher.gifts.exceptions.GiftNotFoundException;
-import pl.sda.giftwisher.giftwisher.gifts.exceptions.WebApplicationException;
 import pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.NewGiftDto;
@@ -14,9 +13,11 @@ import pl.sda.giftwisher.giftwisher.users.repository.UserRepository;
 import pl.sda.giftwisher.giftwisher.users.service.UserService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class GiftServiceImpl implements GiftService {
 
@@ -60,11 +61,24 @@ public class GiftServiceImpl implements GiftService {
         userRepository.save(userEntity);
     }
 
+    public GiftDto getGiftById(Long idGift) {
+        return giftRepository.findProductEntityById(idGift)
+                .map(g -> g.mapToGiftDto())
+                .orElseThrow(() -> new NoSuchElementException("Not found product with id = " + idGift));
+    }
+
     @Override
-    public GiftDto getGiftById(Long idGift) throws WebApplicationException {
-        Optional<GiftEntity> optionalGiftEntity = giftRepository.findProductEntityById(idGift);
-        return optionalGiftEntity
-                .map(GiftEntity::mapToGiftDto)
-                .orElseThrow(() -> new GiftNotFoundException("Not found product with id = " + idGift));
+    @Transactional
+    public void updateGiftStatus(Long giftId, GiftStatus giftStatus) {
+        giftRepository.updateGiftStatusWhereId(giftStatus, giftId);
+    }
+
+    private void setStatus(GiftDto dto) {
+        Optional<GiftEntity> productEntityById = giftRepository.findProductEntityById(dto.getId());
+        if (productEntityById.isPresent()) {
+            productEntityById.ifPresent(entity -> entity.setGiftStatus(dto.getGiftStatus()));
+            productEntityById.ifPresent(giftRepository::save);
+            log.info(productEntityById.toString());
+        }
     }
 }

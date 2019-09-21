@@ -1,5 +1,6 @@
 package pl.sda.giftwisher.giftwisher.users.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.sda.giftwisher.giftwisher.gifts.model.dto.GiftDto;
@@ -13,6 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -50,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<GiftDto> getGifts(String username) {
-        System.out.println(userRepository.findByUsername(username).getGifts());
+        log.info(" list of gifts accessed: " + userRepository.findByUsername(username).getGifts());
         return userRepository.findByUsername(username).getGifts().stream()
                 .map(GiftEntity::mapToGiftDto)
                 .collect(Collectors.toList());

@@ -1,5 +1,6 @@
 package pl.sda.giftwisher.giftwisher.users.model;
 
+import lombok.Setter;
 import pl.sda.giftwisher.giftwisher.gifts.model.entity.GiftEntity;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class UserEntity {
 
     private String password;
 
+    @Setter
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<GiftEntity> gifts = new ArrayList<>();
 
