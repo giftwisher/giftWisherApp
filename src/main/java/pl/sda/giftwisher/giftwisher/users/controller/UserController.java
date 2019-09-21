@@ -41,7 +41,7 @@ public class UserController {
         }
         userService.save(userForm);
         securityService.autoLogin(userForm.getUsername(), userForm.getPassword());
-        return "redirect:/gift_form";
+        return "redirect:/welcome";
     }
 
     @GetMapping("/login")
