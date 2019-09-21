@@ -33,18 +33,18 @@
                         <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).AVAILABLE}"
                               class="saveForm"
                               th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/RESERVED'}"
-                              method="post">
+                              method="post" data-toggle="tooltip" title="Click if you want to reserve me!">
                             <button type="submit" class="btn btn-success">Reserve</button>
                         </form>
                         <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).RESERVED}"
                               class="saveForm"
                               th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/TAKEN'}"
-                              method="post">
+                              method="post" data-toggle="tooltip" title="Click if you want to buy me!">
                             <button type="submit" class="btn btn-warning">Block</button>
                         </form>
                         <form th:case="${T(pl.sda.giftwisher.giftwisher.gifts.model.GiftStatus).TAKEN}" class="saveForm"
                               th:action="@{'/wishlist/'+${username}+'/gifts/'+${gift.id}+'/status/AVAILABLE'}"
-                              method="post">
+                              method="post" data-toggle="tooltip" title="Click if you want to resign from buying me!">
                             <button type="submit" class="btn btn-dark">Free</button>
                         </form>
                     </div>
