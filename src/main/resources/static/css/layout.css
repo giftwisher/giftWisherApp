@@ -5,12 +5,9 @@ a {
 }
 
 .text-highlight {
-    background-image: linear-gradient(180deg, transparent 75%, rgb(140, 82, 255) 0);
+    background-image: linear-gradient(180deg, transparent 75%, rgb(172, 109, 168) 0);
     background-size: 100% 85%;
     background-repeat: no-repeat;
-}
-.bg-fiolet {
-    background-color: rgb(140, 82, 255);
 }
 
 element.style {
