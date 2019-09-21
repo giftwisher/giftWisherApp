@@ -12,3 +12,7 @@ Project using:
 
 # Application Demo
 Application is available here [https://giftwisher.herokuapp.com/](https://giftwisher.herokuapp.com/)
+
+![.images/demo2.bmp](.images/demo2.bmp)
+
+![.images/demo3.bmp](.images/demo3.bmp)
