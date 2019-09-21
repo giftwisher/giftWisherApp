@@ -12,6 +12,7 @@ import pl.sda.giftwisher.giftwisher.users.repository.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -41,6 +42,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public UserEntity findByUuid(UUID uuid) {
+        return userRepository.findByCorrId(uuid);
     }
 
     @Override
